@@ -7,9 +7,9 @@ import Select from 'react-select'
 function Header () {
 
     const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' }
+        { value: 'city-1', label: 'Visaginas' },
+        { value: 'city-2', label: 'Ipswich' },
+        { value: 'city-3', label: 'Vilnius' }
     ]
 
     const colourStyles = {

@@ -1,0 +1,52 @@
+
+@import '../../../styles/variables';
+
+.currentDay {
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+    background: $light-background;
+    box-shadow: $box-shadow;
+    border-radius: $border-radius;
+}
+
+.top_block {
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 30px;
+
+
+    svg {
+        width: 119px;
+        height: 119px;
+    }
+
+    .this_day_temp {
+        font-size: 96px;
+        font-weight: 500;
+        color: $primary_color;
+
+    }
+
+    .currentDay {
+        font-size: 40px;
+        color: $light_color;
+
+    }
+
+}
+
+.bottom_block {
+    .this_local_time,
+    .this_location {
+        color: $back_color;
+        font-size: 20px;
+    }
+
+
+    .this_local_time {
+        margin-bottom: 20px;
+    }
+}
