@@ -1,7 +1,9 @@
 import React from 'react'
 import s from './Home.module.scss'
 import CurrentDay from "../CurrentDay/CurrentDay";
-import CurrentDayInfo from "../CurrentDayInfo/CurrentDayInfo";
+import CurrentDayInfo, {Item} from "../CurrentDayInfo/CurrentDayInfo";
+import Week from "../Week/Week";
+import Popup from "../../../shared/Popup/Popup";
 
 interface Props {
 
@@ -13,6 +15,7 @@ const Home = (props: Props) => {
             <CurrentDay/>
             <CurrentDayInfo/>
         </div>
+            <Week/>
     </div>
 }
 

@@ -4,3 +4,13 @@ $border-radius: 20px;
 $light_color: #000;
 $primary_color: #4793ff;
 $back_color: #939CB0;
+
+
+$body-background-dark:#000;
+$body-background-light:#FFFF;
+
+:root {
+  --body-background-dark: #{$body-background-dark};
+  --body-background-light: #{$body-background-light};
+  --body-background-default: var(#{--body-background-light});
+}

@@ -28,7 +28,7 @@ function Header () {
         <header className={s.header}>
             <div className={s.wrapper}>
                 <div className={s.logo}><GlobalSvgSelector id={'header-logo'} /></div>
-                <div className={s.title}>ReactWeather</div>
+                <div className={s.title}>Weather</div>
             </div>
             <div className={s.wrapper}>
                 <GlobalSvgSelector id={'change-theme'} />

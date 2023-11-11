@@ -13,7 +13,9 @@ export interface Item {
     value: String,
 }
 
+
 const CurrentDayInfo = (props: Props) => {
+
     const items= [
         {
             icon_id: 'temperature',
