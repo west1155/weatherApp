@@ -2,20 +2,28 @@ import React, {useEffect, useState} from "react"
 import s from "./Header.module.scss"
 import {GlobalSvgSelector} from "../../assets/icons/global/GlobalSvgSelector";
 import Select from 'react-select'
-import {inspect} from "util";
+import {useTheme} from "../../hooks/useTheme";
+import {Theme} from "../../context/ThemeContext";
+import {storage} from "../../context/storage/Storage";
 
-function Header() {
 
-    const options = [
-        {value: 'city-1', label: 'Visaginas'},
-        {value: 'city-2', label: 'Ipswich'},
-        {value: 'city-3', label: 'Vilnius'}
+
+const Header = () => {
+
+
+
+        const themeObj = useTheme()
+
+    const options: any = [
+        {value: 'Vilnius', label: 'Visaginas'},
+        {value: 'Ipswich', label: 'Ipswich'},
+        {value: 'London', label: 'London'}
     ]
 
     const colourStyles = {
         control: (styles: any) => ({
             ...styles,
-            backgroundColor: 0 ? '#4F4F4F' : 'rgba(71, 147, 255, 0.2)',
+            backgroundColor: themeObj.theme === Theme.DARK ? '#4F4F4F' : 'rgba(71, 147, 255, 0.2)',
             width: '194px',
             height: '37px',
             border: 'none',
@@ -24,37 +32,31 @@ function Header() {
         }),
         singleValue: (styles: any) => ({
             ...styles,
-            color: 0 ? '#fff' : '#000'
+            color: themeObj.theme === Theme.DARK ? '#fff' : '#000'
         })
     }
-
-
-    const [theme, setTheme] = useState('light')
 
     function changeTheme() {
-        setTheme(theme === 'light' ? 'dark' : 'light')
+        themeObj.changeTheme(themeObj.theme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT)
 
     }
 
-    useEffect(() => {
-        const root = document.querySelector(':root') as HTMLElement
-        components.forEach(component => {
-            root.style.setProperty(
-                `--${component}-background-default`,
-                `var(--${component}-background-${theme})`)
-        })
-    }, [theme])
-
-    const components = [
-        'body',
-        'components',
-        'card',
-        'card-shadow',
-        'text-color'
-    ]
+    const [selectedOption, setSelectedOption] =
+        useState(options[0])
 
 
-    return (
+    // Function to handle select change and trigger redraw
+    const handleSelectChange = async (selectedOption: any)  => {
+        setSelectedOption(selectedOption);
+        storage.setItem('selected_city', selectedOption)
+    };
+
+
+
+
+
+
+        return (
         <header className={s.header}>
             <div className={s.wrapper}>
                 <div className={s.logo}><GlobalSvgSelector id={'header-logo'}/></div>
@@ -64,10 +66,11 @@ function Header() {
                 <div className={s.change_theme} onClick={changeTheme}>
                     <GlobalSvgSelector id={'change-theme'}/>
                 </div>
-                <Select
-                    defaultValue={options[0]}
-                    styles={colourStyles}
-                    options={options}
+                <Select value={selectedOption}
+                        styles={colourStyles}
+                        options={options}
+                        onChange={handleSelectChange}
+                        placeholder="Select an option"
                 />
             </div>
         </header>
