@@ -6,15 +6,26 @@ import {storage} from "../../../context/storage/Storage";
 interface Props {
 }
 
+
+
+
+
 const CurrentDay = (props: Props) => {
 
+
+    const temperature = storage.getItem('temp_c')
+
     useEffect(() => {
-    }, [storage.getItem('temperature')]);
+        return (
+            <div className={s.this_day_temp}>{temperature}</div>
+        )
+
+    }, [temperature]);
 
     return <div className={s.currentDay}>
         <div className={s.top_block}>
             <div className={s.top_block_wrapper}>
-                <div className={s.this_day_temp}>{storage.getItem('temperature')}</div>
+                <div className={s.this_day_temp}>{temperature}</div>
                 <div className={s.current_day}>Today</div>
             </div>
             <GlobalSvgSelector id={'sun'}/>

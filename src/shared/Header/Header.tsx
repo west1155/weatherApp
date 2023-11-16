@@ -5,14 +5,14 @@ import Select from 'react-select'
 import {useTheme} from "../../hooks/useTheme";
 import {Theme} from "../../context/ThemeContext";
 import {storage} from "../../context/storage/Storage";
+import axios, {AxiosResponse} from "axios";
 
 
 
 const Header = () => {
 
 
-
-        const themeObj = useTheme()
+    const themeObj = useTheme()
 
     const options: any = [
         {value: 'Vilnius', label: 'Visaginas'},
@@ -41,22 +41,33 @@ const Header = () => {
 
     }
 
+    const weatherApi = axios.create({
+        baseURL: 'https://api.weatherapi.com/v1/current.json?',
+        params: {
+            key: 'e9085857356649e5a02122632231411', // Replace with your actual API key
+        }
+    });
+
     const [selectedOption, setSelectedOption] =
         useState(options[0])
 
 
     // Function to handle select change and trigger redraw
-    const handleSelectChange = async (selectedOption: any)  => {
+    const handleSelectChange = async (selectedOption: any) => {
         setSelectedOption(selectedOption);
-        storage.setItem('selected_city', selectedOption)
+        weatherApi.get(`&q=${selectedOption.value}`)
+            .then(response => {
+                storage.setItem('temp_c', response.data.current.temp_c)
+            })
+            .catch(error => {
+                // Handle error scenarios
+                console.error('Error fetching data:', error);
+            });
+
     };
 
 
-
-
-
-
-        return (
+    return (
         <header className={s.header}>
             <div className={s.wrapper}>
                 <div className={s.logo}><GlobalSvgSelector id={'header-logo'}/></div>
@@ -69,7 +80,7 @@ const Header = () => {
                 <Select value={selectedOption}
                         styles={colourStyles}
                         options={options}
-                        onChange={handleSelectChange}
+                        onChange={(e) => handleSelectChange(e)}
                         placeholder="Select an option"
                 />
             </div>
