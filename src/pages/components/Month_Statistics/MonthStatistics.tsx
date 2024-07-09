@@ -1,11 +1,9 @@
 import React from 'react'
 import s from  './MonthStatistics.module.css'
 
-interface Props {
-    
-}
+type HomeProps = {}
 
-const Home = (props: Props) => {
+const Home: React.FC<HomeProps> = (props) => {
     return <div className={s.home}>MonthStatistics</div>
 } 
 

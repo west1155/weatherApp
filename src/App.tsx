@@ -4,6 +4,7 @@ import Header from '../src/shared/Header/Header'
 import MonthStatistics from "./pages/components/Month_Statistics/MonthStatistics";
 import {Route, Routes} from "react-router-dom"
 import './styles/index.scss'
+import Week from "./pages/components/Week/Week";
 
 
 const App = () => {
@@ -12,9 +13,10 @@ const App = () => {
             <div className="container">
                 <Header/>
                 <Routes>
-                    <Route path={'/'} element={<Home/>}></Route>
+                    <Route path={'/'} index  element={<Home/>}></Route>
                     <Route path={'/month-statistics'} element={<MonthStatistics/>}></Route>
                 </Routes>
+                <Week/>
             </div>
         </div>
     )

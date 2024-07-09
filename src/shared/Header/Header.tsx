@@ -4,8 +4,9 @@ import {GlobalSvgSelector} from "../../assets/icons/global/GlobalSvgSelector";
 import Select from 'react-select'
 import {useTheme} from "../../hooks/useTheme";
 import {Theme} from "../../context/ThemeContext";
-import {storage} from "../../context/storage/Storage";
-import axios, {AxiosResponse} from "axios";
+import {useDispatch} from "react-redux";
+import {setTemperature} from "../../store/tempSlice";
+import {weatherApi} from "../../axios/WeatherApi";
 
 
 
@@ -13,6 +14,9 @@ const Header = () => {
 
 
     const themeObj = useTheme()
+
+    const dispatch = useDispatch()
+
 
     const options: any = [
         {value: 'Vilnius', label: 'Visaginas'},
@@ -41,12 +45,6 @@ const Header = () => {
 
     }
 
-    const weatherApi = axios.create({
-        baseURL: 'https://api.weatherapi.com/v1/current.json?',
-        params: {
-            key: 'e9085857356649e5a02122632231411', // Replace with your actual API key
-        }
-    });
 
     const [selectedOption, setSelectedOption] =
         useState(options[0])
@@ -57,7 +55,7 @@ const Header = () => {
         setSelectedOption(selectedOption);
         weatherApi.get(`&q=${selectedOption.value}`)
             .then(response => {
-                storage.setItem('temp_c', response.data.current.temp_c)
+                dispatch(setTemperature(response.data.current.temp_c))
             })
             .catch(error => {
                 // Handle error scenarios

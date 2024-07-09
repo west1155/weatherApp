@@ -6,3 +6,9 @@ export type Current = {
 export type Weather = {
     current: Current
 }
+
+
+export type Location = {
+    value: string,
+    label: string
+}
