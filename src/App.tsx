@@ -12,10 +12,11 @@ const App = () => {
         <div className="global-container">
             <div className="container">
                 <Header/>
-                <Routes>
+                <Home/>
+                {/*<Routes>
                     <Route path={'/'} index  element={<Home/>}></Route>
                     <Route path={'/month-statistics'} element={<MonthStatistics/>}></Route>
-                </Routes>
+                </Routes>*/}
                 <Week/>
             </div>
         </div>
